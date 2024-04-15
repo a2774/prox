@@ -11,3 +11,18 @@ module.exports.adduser = async(req, res)=>{
         res.status(500).json({message:"server problem"});
     }
 }
+
+
+module.exports.updateuser = async(req, res)=>{
+    try {
+        const user = await User.findByIdAndUpdate(req.params.id, req.body);
+        if(!user){
+            return res.json({message:"User is not found"});
+        }
+        res.status(200).json({message:"Update user", user});
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:"something worng"});
+    }
+}
+
